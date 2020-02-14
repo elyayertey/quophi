@@ -1,7 +1,9 @@
 <?php
+require( 'display.class.php' );
+
 
 class product {
-    
+
   private $id;
   private $name;
   private $description;
@@ -13,7 +15,8 @@ class product {
   private $date_created;
   private $last_updated;
   private $active;
-    
+  public $display;
+
 
   public function set_id( $id ) {
     $this->id = $id;
@@ -50,6 +53,8 @@ class product {
 
   function __construct() {
     $this->last_updated = date( 'Y-m-d H:i:s' );
+    $this->active = 1;
+    $this->display = new display();
   }
 
 
@@ -65,6 +70,7 @@ class product {
     $addProduct->bindParam( ':date_created', $this->date_created, PDO::PARAM_STR );
     $addProduct->bindParam( ':last_updated', $this->date_updated, PDO::PARAM_STR );
     $addProduct->bindParam( ':active', $this->active, PDO::PARAM_INT );
+
     if ( $addProduct->execute() ) {
       $this->toJson( 'success', 'Successfully added' );
     } else {
@@ -116,7 +122,8 @@ class product {
 
   function fetchProductById() {
     $fetchProductById = $connect->prepare( 'SELECT * FROM products WHERE id=:id AND active=:active' );
-    $fetchAllActiveProducts->bindParam( ':active', 1, PDO::PARAM_INT );
+    $fetchAllActiveProducts->bindParam( ':id', $this->id, PDO::PARAM_INT );
+    $fetchAllActiveProducts->bindParam( ':active', $this->active, PDO::PARAM_INT );
     $allActiveProducts = $fetchAllActiveProducts->execute();
     $activeProducts = $allActiveProducts->fetch( PDO::FETCH_ASSOC );
     $this->toJson( 'success', $activeProducts );

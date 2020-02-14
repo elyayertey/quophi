@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled Document</title>
+<link href="css/bootstrap-4.2.1.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<form class="needs-validation" novalidate>
+  <div class="form-group">
+    <label for="product_name">Product name</label>
+    <input type="text" class="form-control" id="product_name" name="name" placeholder="Product name" required>
+    <small id="product_name_help" class="form-text text-muted">Please provide the product name.</small> </div>
+  <div class="form-group">
+    <label for="product_description">Product description</label>
+    <textarea class="form-control" id="product_description" name="description" placeholder="Product description" required></textarea>
+    <small id="product_description_help" class="form-text text-muted">Please provide the product description.</small> </div>
+  <div class="form-group">
+    <label for="product_availability">Product availability</label>
+    <select class="form-control" id="product_availability" name="availability" placeholder="Product availability" required>
+      <option value="">Select Answer</option>
+      <option value="yes">Available</option>
+      <option value="No">Unavailable</option>
+    </select>
+    <small id="product_availability_help" class="form-text text-muted">Is the product available.</small> </div>
+  <div class="form-group">
+    <label for="product_quantity">Product quantity available</label>
+    <input type="text" class="form-control" id="product_quantity" name="quantity" placeholder="Product quantity" required>
+    <small id="product_quantity_help" class="form-text text-muted">What quantity of this product is available.</small> </div>
+  <div class="form-group">
+    <label for="product_ship_qty">Minimum orders required to ship</label>
+    <input type="text" class="form-control" id="product_ship_qty" name="requiredToShip" placeholder="Product orders required to ship" required>
+    <small id="product_ship_qty_help" class="form-text text-muted">How many orders are required for this product to ship?</small> </div>
+  <div class="form-group">
+    <label for="product_promo_ends">Deadline for placing orders</label>
+    <input type="date" class="form-control" id="product_promo_ends" name="promo_ends" placeholder="Select Date" required>
+    <small id="product_quantity_help" class="form-text text-muted">This promotion ends on the date selected</small> </div>
+  <input type="hidden"  id="action" name="action" placeholder="add_product">
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
+    <script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+    
+</html>

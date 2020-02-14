@@ -79,30 +79,21 @@ class gallery {
   }
 
 
-  function listAllActiveProducts() {
-    $listAllActiveProducts = $connect->prepare( 'SELECT * FROM products WHERE active=:active' );
-    $listAllActiveProducts->bindParam( ':active', 1, PDO::PARAM_INT );
-    $fetchProducts = $listAllActiveProducts->execute();
-    $total = $fetchProducts->rowCount();
+  function fetchPhotosById($product_id) {
+    $fetchPhotoById = $connect->prepare( 'SELECT * FROM gallery WHERE active=:active AND product_id=:product_id' );
+    $fetchPhotoById->bindParam( ':active', 1, PDO::PARAM_INT );
+    $fetchPhotoById->bindParam( ':product_id', $priduct_id, PDO::PARAM_INT );
+    $fetchPhotos = $fetchPhotoById->execute();
+    $total = $fetchPhotos->rowCount();
     if ( $total > 0 ) {
-      $products = $fetchProducts->fetchAll();
-      $this->toJson( 'success', $products );
+      $photos = $fetchPhotos->fetchAll();
+      $this->toJson( 'success', $photos );
     } else {
-      $this->toJson( 'error', 'We could not load any products' );
+      $this->toJson( 'error', 'We could not load any photos' );
     }
-
-
   }
 
-  function fetchProductById() {
-    $fetchProductById = $connect->prepare( 'SELECT * FROM products WHERE id=:id AND active=:active' );
-    $fetchAllActiveProducts->bindParam( ':active', 1, PDO::PARAM_INT );
-    $allActiveProducts = $fetchAllActiveProducts->execute();
-    $activeProducts = $allActiveProducts->fetch( PDO::FETCH_ASSOC );
-    $this->toJson( 'success', $activeProducts );
-  }
-
-
+ 
   function toJson( $status, $message ) {
     $res = array( 'status' => $status, 'message' => $message );
     $res_encode = json_encode( $res );
