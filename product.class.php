@@ -122,9 +122,9 @@ class product {
 
   function fetchProductById() {
     $fetchProductById = $connect->prepare( 'SELECT * FROM products WHERE id=:id AND active=:active' );
-    $fetchAllActiveProducts->bindParam( ':id', $this->id, PDO::PARAM_INT );
-    $fetchAllActiveProducts->bindParam( ':active', $this->active, PDO::PARAM_INT );
-    $allActiveProducts = $fetchAllActiveProducts->execute();
+    $fetchProductById->bindParam( ':id', $this->id, PDO::PARAM_INT );
+    $fetchProductById->bindParam( ':active', $this->active, PDO::PARAM_INT );
+    $allActiveProducts = $fetchProductById->execute();
     $activeProducts = $allActiveProducts->fetch( PDO::FETCH_ASSOC );
     $this->toJson( 'success', $activeProducts );
   }

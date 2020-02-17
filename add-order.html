@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untitled Document</title>
+<link href="css/bootstrap-4.2.1.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<form class="needs-validation" novalidate>
+  <div class="form-group">
+    <label for="first_name">First name</label>
+    <input type="text" class="form-control" id="first_name" name="firstname" placeholder="First name" required>
+    <small id="first_name_help" class="form-text text-muted">Please provide the first name.</small> 
+    </div>
+  <div class="form-group">
+    <label for="last_name">Last name</label>
+    <input type="text" class="form-control" id="last_name" name="lastname" placeholder="Last name" required>
+    <small id="last_name_help" class="form-text text-muted">Please provide your last name.</small> 
+    </div>
+    
+  <div class="form-group">
+    <label for="email_address">Email address</label>
+    <input type="email" class="form-control" id="email_address" name="email" placeholder="Email address" required>
+    <small id="email_help" class="form-text text-muted">Provide your email address.</small> </div>
+    
+  <div class="form-group">
+    <label for="phone_number">Phone number</label>
+    <input type="text" class="form-control" id="phone_number" name="phone" placeholder="Phone Number" required>
+    <small id="phone_help" class="form-text text-muted">Provide your phone number.</small> </div>
+    
+  <div class="form-group">
+    <label for="qty">How many do you want to buy?</label>
+    <input type="text" class="form-control" id="qty" name="qty" placeholder="Quantity required" required>
+    <small id="qty_help" class="form-text text-muted">Please type a number</small> </div>
+    
+  <div class="form-group">
+    <label for="address">Delivery Address</label>
+    <textarea class="form-control" id="address" name="address" placeholder="Delivery Address" required></textarea>
+    <small id="product_quantity_help" class="form-text text-muted">Where do you want us to ship to?</small> </div>
+  <input type="hidden"  id="action" name="action" placeholder="add_product">
+  <button type="submit" class="btn btn-primary" onClick="addOrder();">Submit</button>
+</form>
+</body>
+    <script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+    <script type="text/javascript">
+    function addOrder(){
+        
+        var firstName = document.getElementById('first_name').value;
+        var lastName = document.getElementById('last_name').value;
+        var email_address = document.getElementById('email_address').value;
+        var phone_number = document.getElementById('phone_number').value;
+        var qty = document.getElementById('qty').value;
+        var address = document.getElementById('address').value;
+        
+        axios.post('/user', {
+        firstName: firstName,
+        lastName: lastName,
+        email:email_address,
+        phone:phone_number,
+        qty:qty,
+        address:address 
+      })
+        
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+    </script>
+</html>
